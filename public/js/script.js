@@ -8,11 +8,20 @@ var roomInput=document.getElementById('roomName');
 var userVideo=document.getElementById('user-video');
 var peerVideo=document.getElementById('peer-video');
 
+//upgrading
+var btnGroup=document.getElementById('btn-group');
+var muteBtn=document.getElementById('mute');
+var leaveRoomBtn=document.getElementById('leaveRoom');
+var hideCameraBtn=document.getElementById('hideCamera');
+
 userVideo.style.transform = 'scaleX(-1)';
 
 var roomName=roomInput.value;
 
 var creator=false;
+var muteFlag=false;
+var leaveRoom=false;
+var hideCameraFlag=false;
 
 var userStream;
 
@@ -42,7 +51,7 @@ joinBtn.addEventListener("click",function(){
     {
         alert("Please enter a room name!");
     }else{
-
+        roomName=roomInput.value;
         socket.emit("join",roomName);
 
 
@@ -52,7 +61,83 @@ joinBtn.addEventListener("click",function(){
     }
 
 });
+muteBtn.addEventListener("click",function(){
+   muteFlag = !muteFlag;
 
+   if(muteFlag)
+   {
+    userStream.getTracks()[0].enabled=false;
+    muteBtn.textContent="Unmute";
+
+   }else{
+    userStream.getTracks()[0].enabled=true;
+    muteBtn.textContent="Mute";
+   }
+});
+
+hideCameraBtn.addEventListener("click",function(){
+    hideCameraFlag = !hideCameraFlag;
+ 
+    if(hideCameraFlag)
+    {
+     userStream.getTracks()[1].enabled=false;
+     hideCameraBtn.textContent="Show Camera";
+ 
+    }else{
+     userStream.getTracks()[1].enabled=true;
+     hideCameraBtn.textContent="Hide Camera";
+    }
+ });
+
+
+ leaveRoomBtn.addEventListener("click",function(){
+    
+   socket.emit("leave",roomName);
+
+   videoChatForms.style="display:block";
+            btnGroup.style="display:none";
+            if(userVideo.srcObject)
+            {
+                userVideo.srcObject.getTracks()[0].stop();
+                userVideo.srcObject.getTracks()[1].stop();
+            }
+
+            if(peerVideo.srcObject)
+            {
+                peerVideo.srcObject.getTracks()[0].stop();
+            peerVideo.srcObject.getTracks()[1].stop();
+            }
+
+            if(rtcPeerConnection)
+            {
+                rtcPeerConnection.ontrack=null;
+                rtcPeerConnection.onicecandidate=null;
+                rtcPeerConnection.close();
+            }
+
+
+
+           
+
+           
+
+ });
+
+ socket.on("leave",function(){
+    creator=true;
+    if(peerVideo.srcObject)
+    {
+        peerVideo.srcObject.getTracks()[0].stop();
+    peerVideo.srcObject.getTracks()[1].stop();
+    }
+
+    if(rtcPeerConnection)
+    {
+        rtcPeerConnection.ontrack=null;
+        rtcPeerConnection.onicecandidate=null;
+        rtcPeerConnection.close();
+    }
+ });
 
 socket.on("created",function(){
     creator=true;
@@ -66,6 +151,7 @@ socket.on("created",function(){
         function(stream){
             userStream=stream;
             videoChatForms.style="display:none";
+            btnGroup.style="display:flex";
             userVideo.srcObject=stream;
             userVideo.onloadedmetadata = function(e){
                 userVideo.play();
@@ -89,6 +175,7 @@ console.log("******connection*********");
         function(stream){
             userStream=stream;
             videoChatForms.style="display:none";
+            btnGroup.style="display:flex";
             userVideo.srcObject=stream;
             userVideo.onloadedmetadata = function(e){
                 userVideo.play();

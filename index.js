@@ -11,9 +11,15 @@ const options = {
 // Create HTTPS server
 const server = https.createServer(options, app);
 const socket = require('socket.io');
+
 server.listen(3000,()=>{
-console.log('Server is Running');
-});
+    console.log('Server is Running');
+    });
+
+
+// const server= app.listen(3000,()=>{
+// console.log('Server is Running');
+// });
 
 const bodyParser= require('body-parser');
 app.use(bodyParser.json());
@@ -84,6 +90,14 @@ io.on("connection",function(socket){
 
         socket.broadcast.to(roomName).emit('answer',answer);
 
+    });
+
+
+    socket.on("leave",function(roomName){
+        console.log("leave");
+
+        socket.leave(roomName);
+        socket.broadcast.to(roomName).emit('leave');
     });
 
 });
