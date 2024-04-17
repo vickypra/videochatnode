@@ -11,7 +11,7 @@ const options = {
 // Create HTTPS server
 const server = https.createServer(options, app);
 const socket = require('socket.io');
-server= app.listen(3000,()=>{
+server.listen(3000,()=>{
 console.log('Server is Running');
 });
 
