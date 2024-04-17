@@ -4,8 +4,8 @@ const express = require('express');
 const app =express();
 
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/priyanshu.devniks.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/priyanshu.devniks.com/fullchain.pem')
+  key: fs.readFileSync('/priyanshu.devniks.com/privkey.pem'),
+  cert: fs.readFileSync('/priyanshu.devniks.com/fullchain.pem')
 };
 
 // Create HTTPS server
