@@ -1,10 +1,17 @@
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const app =express();
 
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/priyanshu.devniks.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/priyanshu.devniks.com/fullchain.pem')
+};
 
+// Create HTTPS server
+const server = https.createServer(options, app);
 const socket = require('socket.io');
-
-const server= app.listen(3000,()=>{
+server= app.listen(3000,()=>{
 console.log('Server is Running');
 });
 
