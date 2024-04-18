@@ -18,7 +18,7 @@ server.listen(3000,()=>{
 
 
     
-    
+
 // const server= app.listen(3000,()=>{
 // console.log('Server is Running');
 // });
@@ -54,7 +54,7 @@ io.on("connection",function(socket){
             socket.join(roomName);
             socket.emit("created");
             console.log("Room Created");
-        }else if(room.size>0)
+        }else if(room.size==1)
         {
             socket.join(roomName);
             socket.emit("joined");
