@@ -17,9 +17,12 @@ server.listen(3000,()=>{
     });
 
 
+    
+    
 // const server= app.listen(3000,()=>{
 // console.log('Server is Running');
 // });
+
 
 const bodyParser= require('body-parser');
 app.use(bodyParser.json());
