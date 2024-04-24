@@ -9,7 +9,7 @@ const app =express();
 // };
 
 // Create HTTPS server
-const server = https.createServer(options, app);
+const server = https.createServer(app);
 const socket = require('socket.io');
 
 server.listen(3000,()=>{
