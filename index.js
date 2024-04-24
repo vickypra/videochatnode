@@ -1,27 +1,27 @@
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 const express = require('express');
 const app =express();
 
-const options = {
-  key: fs.readFileSync('/var/www/html/vicky/videochatnode/privkey.pem'),
-  cert: fs.readFileSync('/var/www/html/vicky/videochatnode/fullchain.pem')
-};
+// const options = {
+//   key: fs.readFileSync('/var/www/html/vicky/videochatnode/privkey.pem'),
+//   cert: fs.readFileSync('/var/www/html/vicky/videochatnode/fullchain.pem')
+// };
 
 // Create HTTPS server
-const server = https.createServer(options, app);
+//const server = https.createServer(options, app);
 const socket = require('socket.io');
 
-server.listen(3000,()=>{
-    console.log('Server is Running');
-    });
+// server.listen(3000,()=>{
+//     console.log('Server is Running');
+//     });
 
 
     
 
-// const server= app.listen(3000,()=>{
-// console.log('Server is Running');
-// });
+const server= app.listen(3000,()=>{
+console.log('Server is Running');
+});
 
 
 const bodyParser= require('body-parser');
