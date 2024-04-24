@@ -9,19 +9,19 @@ const app =express();
 // };
 
 // Create HTTPS server
-//const server = https.createServer(options, app);
+const server = https.createServer(options, app);
 const socket = require('socket.io');
 
-// server.listen(3000,()=>{
-//     console.log('Server is Running');
-//     });
+server.listen(3000,()=>{
+    console.log('Server is Running');
+    });
 
 
     
 
-const server= app.listen(3000,()=>{
-console.log('Server is Running');
-});
+// const server= app.listen(3000,()=>{
+// console.log('Server is Running');
+// });
 
 
 const bodyParser= require('body-parser');
