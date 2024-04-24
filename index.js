@@ -1,5 +1,3 @@
-const https = require('https');
- const fs = require('fs');
 const express = require('express');
 const app =express();
 
@@ -9,7 +7,6 @@ const app =express();
 // };
 
 // Create HTTPS server
-const server = https.createServer(app);
 const socket = require('socket.io');
 
 server.listen(3000,()=>{
@@ -19,9 +16,9 @@ server.listen(3000,()=>{
 
     
 
-// const server= app.listen(3000,()=>{
-// console.log('Server is Running');
-// });
+const server= app.listen(3000,()=>{
+console.log('Server is Running');
+});
 
 
 const bodyParser= require('body-parser');
